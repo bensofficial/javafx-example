@@ -13,8 +13,26 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    junitJupiterVersion = '5.10.2'
+}
+
 dependencies {
-    testImplementation 'de.tum.in.ase:artemis-java-test-sandbox:1.13.0'
+    implementation 'ch.qos.logback:logback-classic:1.5.3'
+    implementation 'org.hamcrest:hamcrest:2.2'
+    implementation 'org.assertj:assertj-core:3.25.3'
+    implementation 'org.json:json:20240303'
+    implementation 'info.debatty:java-string-similarity:2.0.0'
+    implementation 'com.github.javaparser:javaparser-core:3.25.9'
+
+    testImplementation platform("org.junit:junit-bom:$junitJupiterVersion")
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testImplementation 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params'
+    testImplementation 'org.junit.vintage:junit-vintage-engine'
+    testImplementation 'org.junit.platform:junit-platform-testkit'
+
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 
     testImplementation("org.testfx:testfx-core:4.0.16-alpha")
@@ -25,6 +43,7 @@ dependencies {
     testImplementation("org.openjfx:javafx-base:17.0.2:win")
     testImplementation("org.openjfx:javafx-graphics:17.0.2:win")
     testImplementation("org.openjfx:javafx-controls:17.0.2:win")
+    testImplementation("org.openjfx:javafx-swing:17.0.2:win")
 }
 
 javafx {
@@ -63,6 +82,7 @@ application {
 
 def forbiddenPackageFolders = [
                                 "$studentOutputDir/ch/qos/logback/",
+                                "$studentOutputDir/com/github/javaparser/",
                                 "$studentOutputDir/com/intellij/",
                                 "$studentOutputDir/com/sun/",
                                 "$studentOutputDir/de/tum/in/test/api/",
@@ -70,8 +90,8 @@ def forbiddenPackageFolders = [
                                 "$studentOutputDir/javax/",
                                 "$studentOutputDir/jdk/",
                                 "$studentOutputDir/net/jqwik/",
-                                "$studentOutputDir/org/assertj/",
                                 "$studentOutputDir/org/apache/",
+                                "$studentOutputDir/org/assertj/",
                                 "$studentOutputDir/org/eclipse/",
                                 "$studentOutputDir/org/gradle/",
                                 "$studentOutputDir/org/jacoco/",
@@ -80,11 +100,13 @@ def forbiddenPackageFolders = [
                                 "$studentOutputDir/org/opentest4j/",
                                 "$studentOutputDir/sun/",
                                 "$studentOutputDir/worker/org/gradle/",
-                                "$studentOutputDir/com/tngtech/archunit/",
-                                "$studentOutputDir/com/github/javaparser/",
-                                "$studentOutputDir/javafx/application/",
-                                "$studentOutputDir/org/testfx/util/",
-                                "$studentOutputDir/com/sun/javafx/application/",
+                                "$studentOutputDir/com/sun/glass/ui/",
+                                "$studentOutputDir/com/sun/javafx/",
+                                "$studentOutputDir/com/sun/prism/",
+                                "$studentOutputDir/java/awt/",
+                                "$studentOutputDir/javafx/",
+                                "$studentOutputDir/org/testfx/",
+                                "$studentOutputDir/sun/awt/"
 ]
 
 test {
@@ -103,3 +125,13 @@ test {
     systemProperty "prism.text", "t2k"
 }
 
+tasks.register('testLocally', Test) {
+    doFirst {
+        for (String packageFolder in forbiddenPackageFolders) {
+            assert !file(packageFolder).exists(): "$packageFolder must not exist within the submission."
+        }
+    }
+    defaultCharacterEncoding = 'UTF-8'
+    testLogging.showStandardStreams = true
+    useJUnitPlatform()
+}

@@ -3,19 +3,11 @@ package de.tum.cit.ase.javafx;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
 
-import java.net.URL;
-
-import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.Scene;
-import javafx.geometry.Pos;
 
 public class ExampleApp extends Application {
 

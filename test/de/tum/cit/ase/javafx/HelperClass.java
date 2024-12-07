@@ -79,5 +79,4 @@ public final class HelperClass {
                 ReflectionTestUtils.getMethod(instance, name, parameterTypes),
                 methodParameters);
     }
-
 }

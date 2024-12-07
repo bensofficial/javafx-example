@@ -8,6 +8,10 @@ build
 *.war
 *.ear
 
+screenshots/*
+!screenshots/.gitkeep
+.DS_Store
+
 #################
 # Eclipse .gitignore
 # Source: https://github.com/github/gitignore/blob/master/Global/Eclipse.gitignore
