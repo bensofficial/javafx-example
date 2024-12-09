@@ -678,8 +678,74 @@ public final class ArtemisSecurityManager extends SecurityManager {
      */
     @SuppressWarnings("deprecation")
     private Thread[] checkThreadGroup() {
-        // Allow all threads
-        return new Thread[testThreadGroup.activeCount()];
+        if (configuration.isThreadGroupCheckDisabled()) {
+            LOG.debug("Thread group check is disabled"); //$NON-NLS-1$
+            return new Thread[0];
+        }
+
+        blockThreadCreation = true;
+        int originalCount = testThreadGroup.activeCount();
+        if (originalCount == 0)
+            return new Thread[0]; // everything ok
+        var threads = new Thread[originalCount];
+        testThreadGroup.enumerate(threads);
+        // try gentle shutdown; without that, runs on CI might fail because of previous.
+        for (Thread thread : threads) {
+            if (thread == null)
+                continue;
+            try {
+                thread.interrupt();
+                thread.join(500 / originalCount + 1L);
+                LOG.debug("State {} after interrupt and join of {}", thread.getState(), thread); //$NON-NLS-1$
+            } catch (@SuppressWarnings("unused") InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        if (testThreadGroup.activeCount() == 0)
+            return new Thread[0];
+        // try forceful shutdown
+        var securityException = new SecurityException(
+                localized("security.error_threads_not_stoppable", Arrays.toString(threads))); //$NON-NLS-1$
+        int alive = threads.length;
+        TRIES: for (var i = 0; i < 50 && alive > 0; i++) {
+            alive = 0;
+            for (Thread thread : threads) {
+                if (thread == null || !thread.isAlive())
+                    continue;
+                alive++;
+                LOG.debug("Try {} to stop {}, state: {}", i + 1, thread, thread.getState()); //$NON-NLS-1$
+                /*
+                 * we definitely want to forcefully terminate all threads (otherwise, next tests
+                 * will fail)
+                 */
+                thread.stop();
+                try {
+                    thread.join(20 / originalCount + 1L);
+                } catch (InterruptedException e) {
+                    LOG.warn("Error in checkThreadGroup 1", e); //$NON-NLS-1$
+                    securityException.addSuppressed(e);
+                    Thread.currentThread().interrupt();
+                    break TRIES;
+                }
+            }
+        }
+        for (Thread thread : threads) {
+            if (thread == null || !thread.isAlive())
+                continue;
+            try {
+                thread.join(100 / originalCount + 1L);
+            } catch (InterruptedException e) {
+                LOG.warn("Error in checkThreadGroup 2", e); //$NON-NLS-1$
+                securityException.addSuppressed(e);
+                Thread.currentThread().interrupt();
+                break;
+            }
+            if (thread.getState() != Thread.State.TERMINATED)
+                LOG.error("THREAD STOP ERROR: Thread {} is still in state {}", thread, thread.getState()); //$NON-NLS-1$
+        }
+        if (testThreadGroup.activeCount() > 0)
+            throw securityException;
+        return threads;
     }
 
     private void checkCommonThreadPool() {

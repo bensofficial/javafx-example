@@ -26,8 +26,8 @@ import java.io.IOException;
 
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
-@TestAnnotations
-@Public
+@TestFXAnnotations
+@TestFXMacAnnotations
 public class ExampleAppTest extends ApplicationTest {
 	private static final String APP_CLASS_NAME = "de.tum.cit.ase.javafx.ExampleApp";
 	private static final Logger LOG = LoggerFactory.getLogger(ExampleAppTest.class);

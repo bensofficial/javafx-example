@@ -37,6 +37,7 @@ public final class ConfigurationUtils {
         config.withPackageWhitelist(generatePackageWhiteList(context));
         config.withTrustedPackages(getTrustedPackages(context));
         config.withThreadTrustScope(getThreadTrustScope(context));
+        config.withIsThreadGroupCheckDisabled(isThreadGroupCheckDisabled(context));
         configureAllowLocalPort(config, context);
         return config.build();
     }
@@ -112,5 +113,9 @@ public final class ConfigurationUtils {
     private static TrustScope getThreadTrustScope(TestContext context) {
         return TestContextUtils.findAnnotationIn(context, TrustedThreads.class).map(TrustedThreads::value)
                 .orElse(TrustScope.MINIMAL);
+    }
+
+    public static boolean isThreadGroupCheckDisabled(TestContext context) {
+        return TestContextUtils.findAnnotationIn(context, DisableThreadGroupCheck.class).isPresent();
     }
 }

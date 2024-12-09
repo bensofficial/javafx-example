@@ -50,6 +50,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 // Allow all threads and trust all threads
 @TrustedThreads(value = TrustedThreads.TrustScope.ALL_THREADS)
 @AllowThreads
+@DisableThreadGroupCheck
 
 // Whitelisted test classes
 @WhitelistClass(ExampleAppTest.class)
@@ -61,5 +62,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Public
 @Retention(RUNTIME)
 @Target({TYPE, ANNOTATION_TYPE})
-public @interface TestAnnotations {
+public @interface TestFXAnnotations {
 }
