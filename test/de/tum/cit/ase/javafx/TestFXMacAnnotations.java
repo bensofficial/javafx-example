@@ -1,8 +1,6 @@
 package de.tum.cit.ase.javafx;
 
 import de.tum.in.test.api.*;
-import de.tum.in.test.api.jupiter.Public;
-import org.hamcrest.TypeSafeMatcher;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

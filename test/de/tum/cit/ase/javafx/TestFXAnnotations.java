@@ -22,19 +22,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @WhitelistPath(value = "screenshots", level = PathActionLevel.READ)
 
 // Whitelisted paths for Linux and when running in Docker
-@WhitelistPath("/root/.gradle")
-@WhitelistPath("/root/.openjfx")
-@WhitelistPath("/usr/share/fonts")
-@WhitelistPath("/opt/java/openjdk/lib")
-@WhitelistPath("/usr/java/packages/lib")
-
-// Whitelisted paths for macOS
 @WhitelistPath(value = "/root/\\.gradle(/.*)?", type = PathType.REGEX_ABSOLUTE)
 @WhitelistPath(value = "/root/\\.openjfx(/.*)?", type = PathType.REGEX_ABSOLUTE, level = PathActionLevel.READ)
 @WhitelistPath(value = "/root/\\.openjfx(/.*)?", type = PathType.REGEX_ABSOLUTE, level = PathActionLevel.EXECUTE)
-@WhitelistPath("/System/Library/Fonts")
-@WhitelistPath(value = "/Users/[^/]+/Library/Java/Extensions/libglass.dylib", type = PathType.REGEX_ABSOLUTE)
-@WhitelistPath(value = "/Users/[^/]+/Library/Java/JavaVirtualMachines(/.*)?", type = PathType.REGEX_ABSOLUTE)
+@WhitelistPath("/usr/share/fonts")
+@WhitelistPath("/opt/java/openjdk/lib")
+@WhitelistPath("/usr/java/packages/lib")
 
 // Whitelisted packages
 @AddTrustedPackages({
@@ -54,7 +47,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @DisableThreadGroupCheck
 
 // Whitelisted test classes
-@WhitelistClass(ExampleAppTest.class)
+@WhitelistClass(JavaFXTest.class)
 @WhitelistClass(HelperClass.class)
 
 // General test annotations

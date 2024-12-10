@@ -1,4 +1,4 @@
-package de.tum.cit.ase.javafx;
+package de.tum.cit.ase.javafx.exercise;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

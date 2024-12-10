@@ -22,5 +22,5 @@ javafx {
 
 application {
     mainModule = "ExampleApp"
-    mainClass = "de.tum.cit.ase.javafx.ExampleApp"
+    mainClass = "de.tum.cit.ase.javafx.exercise.ExampleApp"
 }
