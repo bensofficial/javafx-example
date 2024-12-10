@@ -1,4 +1,4 @@
-# Secure testing of JavaFX applications in context of Computer Science Education
+# Secure testing of JavaFX applications in the context of Computer Science Education
 
 This repository contains an example of how a JavaFX application can be tested securely using TestFX and Ares.
 
@@ -10,11 +10,11 @@ gradle clean run
 
 ## Running the tests
 
-You can run the tests locally (e.g. on a system with a graphical interface) using: `./gradlew testLocally`
+You can run the tests locally (e.g., on a system with a graphical interface) using: `./gradlew testLocally`
 
 To start the tests in the headless mode, use: `./gradlew test`
 
-If you want to run the tests in headless mode inside a Docker container (to replicate the behaviour of the Continuous Integration System), use: `docker run -it --rm -v ./:/app -w /app ls1tum/artemis-maven-template:java17-20 /bin/bash -c "apt-get update && apt-get install -y libpango1.0-0 && ./gradlew clean test"`
+If you want to run the tests in headless mode inside a Docker container (to replicate the behavior of the Continuous Integration System), use: `docker run -it --rm -v ./:/app -w /app ls1tum/artemis-maven-template:java17-20 /bin/bash -c "apt-get update && apt-get install -y libpango1.0-0 && ./gradlew clean test"`
 
 ## Writing tests
 
@@ -22,8 +22,8 @@ As a testing framework for testing the JavaFX application, we use [TestFX](https
 
 The main features of TestFX are as stated on the website:
 
-TestFX provides a simple-to-use API for setting up the test robot that will interact with the application.
-Additionally, it provides a set of matchers to verify the state of the app right.
+TestFX provides a simple-to-use API for setting up the test robot to interact with the application.
+Additionally, it provides a set of matchers to verify the app's state right.
 
 This integration provides a readable language to define such GUI tests.
 
@@ -45,21 +45,8 @@ captureAndSaveScreenshot("testInput/1");
 
 ## Securing the tests
 
-In general, we use [Ares](https://github.com/ls1intum/Ares) to secure our test execution.
+We generally use [Ares](https://github.com/ls1intum/Ares) to secure our test execution.
 
-To make Ares compatible with our JavaFX application, we had to adapt a few things.
-Thus, this repo contains a hard fork of Ares.
-The following things have been adapted compared to the original version:
-
-- Removed Jqwik
-  - `de.tum.in.test.api.jqwik` package
-  - `@AddLifecycleHook(JqwikLocaleExtension.class)` in `UseLocale.java`
-  - The reference in the JavaDoc of `StrictTimeout.java and `IOManager.java`
-  - `ThrowableSets.java`
-- Allow additional testing threads by replacing the `checkThreadGroup()` method in the `ArtemisSecurityManager`
-```java
-	private Thread[] checkThreadGroup() {
-        // Allow all threads
-		return new Thread[testThreadGroup.activeCount()];
-	}
-```
+We had to adapt a few things to make Ares compatible with our JavaFX application.
+Currently, this repo contains a hard fork of Ares.
+We are working on integrating the changes to Ares.
