@@ -29,8 +29,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @WhitelistPath("/usr/java/packages/lib")
 
 // Whitelisted paths for macOS
-@WhitelistPath(value = "/Users/[^/]+/\\.gradle(/.*)?", type = PathType.REGEX_ABSOLUTE)
-@WhitelistPath(value = "/Users/[^/]+/\\.openjfx(/.*)?", type = PathType.REGEX_ABSOLUTE)
+@WhitelistPath(value = "/root/\\.gradle(/.*)?", type = PathType.REGEX_ABSOLUTE)
+@WhitelistPath(value = "/root/\\.openjfx(/.*)?", type = PathType.REGEX_ABSOLUTE, level = PathActionLevel.READ)
+@WhitelistPath(value = "/root/\\.openjfx(/.*)?", type = PathType.REGEX_ABSOLUTE, level = PathActionLevel.EXECUTE)
 @WhitelistPath("/System/Library/Fonts")
 @WhitelistPath(value = "/Users/[^/]+/Library/Java/Extensions/libglass.dylib", type = PathType.REGEX_ABSOLUTE)
 @WhitelistPath(value = "/Users/[^/]+/Library/Java/JavaVirtualMachines(/.*)?", type = PathType.REGEX_ABSOLUTE)
