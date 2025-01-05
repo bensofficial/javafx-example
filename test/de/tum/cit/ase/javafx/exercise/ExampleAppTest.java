@@ -1,6 +1,7 @@
 package de.tum.cit.ase.javafx.exercise;
 
-import de.tum.cit.ase.javafx.JavaFXTest;
+import de.tum.cit.ase.eos.JavaFXTest;
+import de.tum.cit.ase.eos.TestFXMacAnnotations;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,6 +15,7 @@ import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
 @CustomAnnotations
+@TestFXMacAnnotations
 public class ExampleAppTest extends JavaFXTest {
 	private Button button;
 	private TextField textField;

@@ -18,32 +18,9 @@ ext {
 }
 
 dependencies {
-    implementation 'ch.qos.logback:logback-classic:1.5.3'
-    implementation 'org.hamcrest:hamcrest:2.2'
-    implementation 'org.assertj:assertj-core:3.25.3'
-    implementation 'org.json:json:20240303'
-    implementation 'info.debatty:java-string-similarity:2.0.0'
-    implementation 'com.github.javaparser:javaparser-core:3.25.9'
-
-    testImplementation platform("org.junit:junit-bom:$junitJupiterVersion")
-    testImplementation 'org.junit.jupiter:junit-jupiter-api'
-    testImplementation 'org.junit.platform:junit-platform-launcher'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params'
-    testImplementation 'org.junit.vintage:junit-vintage-engine'
-    testImplementation 'org.junit.platform:junit-platform-testkit'
+    testImplementation "de.tum.cit.ase:eos:0.0.1"
 
     implementation 'org.apache.commons:commons-lang3:3.12.0'
-
-    testImplementation("org.testfx:testfx-core:4.0.16-alpha")
-    testImplementation("org.testfx:testfx-junit5:4.0.16-alpha")
-
-    testImplementation("org.testfx:openjfx-monocle:17.0.10")
-
-    testImplementation("org.openjfx:javafx-base:17.0.2:win")
-    testImplementation("org.openjfx:javafx-graphics:17.0.2:win")
-    testImplementation("org.openjfx:javafx-controls:17.0.2:win")
-    testImplementation("org.openjfx:javafx-swing:17.0.2:win")
 }
 
 javafx {
