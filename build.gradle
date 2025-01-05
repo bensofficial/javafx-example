@@ -13,12 +13,8 @@ repositories {
     mavenCentral()
 }
 
-ext {
-    junitJupiterVersion = '5.10.2'
-}
-
 dependencies {
-    testImplementation "de.tum.cit.ase:eos:0.0.1"
+    testImplementation "de.tum.cit.ase:eos:0.0.3"
 
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 }
