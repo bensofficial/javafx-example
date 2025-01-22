@@ -14,7 +14,7 @@ You can run the tests locally (e.g., on a system with a graphical interface) usi
 
 To start the tests in the headless mode, use: `./gradlew test`
 
-If you want to run the tests in headless mode inside a Docker container (to replicate the behavior of the Continuous Integration System), use: `docker run -it --rm -v ./:/app -w /app ls1tum/eos:0.0.3 /bin/bash -c "./gradlew clean test"`
+If you want to run the tests in headless mode inside a Docker container (to replicate the behavior of the Continuous Integration System), use: `docker run -it --rm -v ./:/app -w /app ls1tum/eos:0.0.4 ./gradlew clean test`
 
 ## Writing tests
 

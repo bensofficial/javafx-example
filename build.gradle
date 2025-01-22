@@ -10,11 +10,12 @@ compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
 dependencies {
-    testImplementation "de.tum.cit.ase:eos:0.0.3"
+    testImplementation "de.tum.cit.ase:eos:0.0.4"
 
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 }
