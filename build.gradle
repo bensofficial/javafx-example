@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation "de.tum.cit.ase:eos:0.0.5"
+    testImplementation "de.tum.cit.ase:eos:1.0.0"
 
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 }
