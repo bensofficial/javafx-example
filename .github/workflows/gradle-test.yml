@@ -17,4 +17,4 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run Gradle Tests
-        run: docker run --rm -v ./:/app -w /app ls1tum/artemis-maven-template:java17-20 /bin/bash -c "apt-get update && apt-get install -y libpango1.0-0 && ./gradlew clean test"
+        run: docker run -it --rm -v ./:/app -w /app ghcr.io/ls1intum/eos:1.0.0 ./gradlew clean test
